@@ -738,6 +738,35 @@ function dropbar_menu_t:fuzzy_find_restore_entries()
   end
 end
 
+---Navigate the fuzzy find menu
+function dropbar_menu_t:fuzzy_find_navigate_up()
+  if not self.fzf_state then
+    return
+  end
+  if vim.api.nvim_buf_line_count(self.buf) <= 1 then
+    return
+  end
+  local cursor = vim.api.nvim_win_get_cursor(self.win)
+  cursor[1] = math.max(1, cursor[1] - 1)
+  vim.api.nvim_win_set_cursor(self.win, cursor)
+  vim.api.nvim_exec_autocmds('CursorMoved', { buffer = self.buf })
+end
+
+---Navigate the fuzzy find menu
+function dropbar_menu_t:fuzzy_find_navigate_down()
+  if not self.fzf_state then
+    return
+  end
+  local line_count = vim.api.nvim_buf_line_count(self.buf)
+  if line_count <= 1 then
+    return
+  end
+  local cursor = vim.api.nvim_win_get_cursor(self.win)
+  cursor[1] = math.min(line_count, cursor[1] + 1)
+  vim.api.nvim_win_set_cursor(self.win, cursor)
+  vim.api.nvim_exec_autocmds('CursorMoved', { buffer = self.buf })
+end
+
 ---Stop fuzzy finding and clean up allocated memory
 ---@version JIT
 function dropbar_menu_t:fuzzy_find_close()
@@ -874,6 +903,7 @@ function dropbar_menu_t:fuzzy_find_open(opts)
     if should_preview then
       self:preview_symbol_at(pos)
     end
+    self:update_scrollbar()
   end
 
   self.fzf_state = utils.fzf.fzf_state_t:new(self, win, opts)
