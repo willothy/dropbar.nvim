@@ -484,7 +484,7 @@ function dropbar_menu_t:open_win()
   self.is_opened = true
 
   self.win = vim.api.nvim_open_win(self.buf, true, self._win_configs)
-  vim.wo[self.win].scrolloff = 0
+  vim.wo[self.win].scrolloff = configs.opts.menu.scrolloff or 0
   vim.wo[self.win].sidescrolloff = 0
   vim.wo[self.win].winhl = table.concat({
     'NormalFloat:DropBarMenuNormalFloat',
