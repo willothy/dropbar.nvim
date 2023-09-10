@@ -1405,6 +1405,10 @@ each sources.
       })
     end
     ```
+  - `opts.sources.path.preview`: `"floating"` | `"previous"`
+    - Default: `"previous"`
+    - `"previous"` will preview the buffer in the menu's previous split window, like TS/LSP symbols.
+    - `"floating"` will preview the buffer in a popup winow adjacent to the menu.
 
 ##### Treesitter
 
@@ -1942,12 +1946,14 @@ Declared and defined in [`lua/dropbar/menu.lua`](https://github.com/Bekaboo/drop
 | ------             | ------                                            | ------                                                                                 |
 | `buf`              | `integer`                                         | buffer number of the menu                                                              |
 | `win`              | `integer`                                         | window id of the menu                                                                  |
+| `preview_win`      | `integer`                                         | window id being used for preview, if any                                               |
 | `is_opened`        | `boolean?`                                        | whether the menu is currently opened                                                   |
 | `entries`          | [`dropbar_menu_entry_t[]`](#dropbar_menu_entry_t) | entries in the menu                                                                    |
 | `win_configs`      | `table`                                           | window configuration, value can be a function, see [menu configuration options](#menu) |
 | `_win_configs`     | `table?`                                          | evaluated window configuration                                                         |
 | `cursor`           | `integer[]?`                                      | initial cursor position                                                                |
 | `prev_win`         | `integer?`                                        | previous window, assigned when calling new() or automatically determined in open()     |
+| `prev_buf`         | `integer?`                                        | previous buffer, assigned when calling new() or automatically determined in open()     |
 | `sub_menu`         | `dropbar_menu_t?`                                 | submenu, assigned when calling new() or automatically determined when a new menu opens |
 | `prev_menu`        | `dropbar_menu_t?`                                 | previous menu, assigned when calling new() or automatically determined in open()       |
 | `clicked_at`       | `integer[]?`                                      | last position where the menu was clicked, 1,0-indexed                                  |

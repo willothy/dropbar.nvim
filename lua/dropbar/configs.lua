@@ -536,6 +536,9 @@ M.opts = {
       modified = function(sym)
         return sym
       end,
+      ---Preview files in the prevous window or a floating window.
+      ---@type "previous"|"floating"
+      preview = 'previous',
     },
     treesitter = {
       -- Lua pattern used to extract a short name from the node text
