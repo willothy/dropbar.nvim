@@ -60,6 +60,14 @@ function fzf_state_t:new(menu, win, opts)
     if not line then
       return nil
     end
+    local vt_start = #line
+    if menu.entries[i].virt_text then
+      local vt_str = ''
+      for _, vt in ipairs(menu.entries[i].virt_text) do
+        vt_str = vt_str .. vt[1]
+      end
+      line = line .. vt_str
+    end
     local line_size = #line
     local c = string.find(line, char_pattern)
     while c and c <= line_size do
@@ -85,6 +93,7 @@ function fzf_state_t:new(menu, win, opts)
       index = i,
       str = table.concat(chars),
       score = 0,
+      max_col = vt_start,
     }
   end
   local state = setmetatable({

@@ -1043,11 +1043,13 @@ function dropbar_menu_t:fuzzy_find_open(opts)
         if fzf_entry.score >= 2 and fzf_entry.pos then
           for _, pos_idx in ipairs(fzf_entry.pos) do
             local pos = fzf_entry.locations[pos_idx]
-            vim.api.nvim_buf_set_extmark(self.buf, ns_id, i - 1, pos - 1, {
-              end_col = pos,
-              hl_group = 'DropBarFzfMatch',
-              priority = vim.highlight.priorities.user + 10,
-            })
+            if pos < fzf_entry.max_col then
+              vim.api.nvim_buf_set_extmark(self.buf, ns_id, i - 1, pos - 1, {
+                end_col = pos,
+                hl_group = 'DropBarFzfMatch',
+                priority = vim.highlight.priorities.user + 10,
+              })
+            end
           end
           fzf_entry.pos = nil
         else
@@ -1074,10 +1076,12 @@ function dropbar_menu_t:fuzzy_find_open(opts)
     group = augroup,
     buffer = buf,
     callback = function()
-      if prev_cursor and vim.api.nvim_win_is_valid(self.win) then
-        vim.schedule(function()
-          move_cursor(prev_cursor)
-        end)
+      if vim.api.nvim_win_is_valid(self.win) then
+        if prev_cursor then
+          vim.schedule(function()
+            move_cursor(prev_cursor)
+          end)
+        end
       end
       self:fuzzy_find_close()
     end,
