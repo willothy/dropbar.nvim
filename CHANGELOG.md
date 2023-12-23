@@ -1,5 +1,181 @@
 # Changelog
 
+## [8.0.0](https://github.com/willothy/dropbar.nvim/compare/v7.3.0...v8.0.0) (2023-12-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **bar:** make callback indexing more robust
+* **configs:** use only markdown source for markdown file symbols
+* **fzf/configs:** remove config option `opts.fzf.hl`
+* **menu:** add background for scrollbar; simplify scrollbar logic
+* **hlgroups:** link `hl-DropBarMenuScrollBar` to `hl-PmenuThumb` by default
+* add builtin source for terminal buffers ([#78](https://github.com/willothy/dropbar.nvim/issues/78))
+* **sources/config:** treesitter/markdown: perfer treesitter parser
+* **sources/config:** treesitter: improve default name pattern and logic
+* **highlights:** remove hl-DropBarIconCurrentContext
+* **config:** open menu relative to clicked symbol by default, fix #37
+* **config:** move preview reorient configs under opts.symbol
+* **symbol:** preview symbol in source window
+* **general behavior:** deprecate opts.general.update_events
+* **highlights:** use hl-DropBarKind* for text highlights ([#18](https://github.com/willothy/dropbar.nvim/issues/18))
+* **general behavior:** do not clear the winbar when not enabled
+* **highlights:** add hl-DropBarMenuNormalFloat linking to hl-WinBar ([#16](https://github.com/willothy/dropbar.nvim/issues/16))
+* convert codepoints from nerdfonts v2 to v3
+
+### Features
+
+* add builtin source for terminal buffers ([#78](https://github.com/willothy/dropbar.nvim/issues/78)) ([6b88dab](https://github.com/willothy/dropbar.nvim/commit/6b88dab5d24b9750f50984e731de9b8bd1fef044))
+* **api:** get_dropbar() accepts empty buffer number ([9a94a22](https://github.com/willothy/dropbar.nvim/commit/9a94a2205d0702dc6258ccdcae34da73a08b9e7b))
+* **bar/highlights:** add current context highlighting to winbar ([36125e5](https://github.com/willothy/dropbar.nvim/commit/36125e51764406f163942f48743d201467325062))
+* **bar:** add truncate mark after the left padding ([3b7412c](https://github.com/willothy/dropbar.nvim/commit/3b7412c13494ffc23519a4dcc3a29c56a22dd9ab))
+* **bar:** dropbar_symbol_t:cat() returns plain text when no bar is associated ([7ae61cc](https://github.com/willothy/dropbar.nvim/commit/7ae61cc14877dcfe5e127b8c66c87247b1ef2eaa))
+* **bar:** highlight the symbol under mouse hovering in the winbar ([c2f49e8](https://github.com/willothy/dropbar.nvim/commit/c2f49e81156038254fe8789a73d08c76fc4db94d))
+* **bar:** support swapping and restoring nil values in dropbar_symbol_t ([31b6fe0](https://github.com/willothy/dropbar.nvim/commit/31b6fe0a77e7ab39143031d305731db103898762))
+* **bar:** truncate leading symbols in extreme narrow windows ([053f7f3](https://github.com/willothy/dropbar.nvim/commit/053f7f30fd07e99f4d1c92b7931bcd1f2a6d723e))
+* **config:** add option to disable icons ([f08ab63](https://github.com/willothy/dropbar.nvim/commit/f08ab6306176813d58cb936b3f2d40a568c8e5cc))
+* **config:** add option to reorient the source window after jump ([4df9092](https://github.com/willothy/dropbar.nvim/commit/4df90921aebf9d51e5772db4901056f61029a0f4))
+* **config:** include '*' in treesitter default name pattern ([a620873](https://github.com/willothy/dropbar.nvim/commit/a620873beb6e581dd83b4d55671710f99ce91a1b))
+* **config:** make attach events configurable, fix [#70](https://github.com/willothy/dropbar.nvim/issues/70) ([b2695b7](https://github.com/willothy/dropbar.nvim/commit/b2695b7880fdafe1b270927c13dd6714416d990c))
+* **config:** move preview reorient configs under opts.symbol ([e136c7f](https://github.com/willothy/dropbar.nvim/commit/e136c7f381b36ce3164e78aeca26d6cb189cd399))
+* **config:** open menu relative to clicked symbol by default, fix [#37](https://github.com/willothy/dropbar.nvim/issues/37) ([a0faad2](https://github.com/willothy/dropbar.nvim/commit/a0faad2b9fb7e5f88a59bc22f9be20445ebc13a1))
+* **config:** preview symbol on mouse hovering ([5ec3fa0](https://github.com/willothy/dropbar.nvim/commit/5ec3fa0fa35c68c1387d84fa9aee019f64ec6552))
+* **configs:** add default keymap `q` to close current menu ([183587d](https://github.com/willothy/dropbar.nvim/commit/183587de8899a8a61edd974ade9c4df73e6b6a49))
+* **configs:** improve preview reorient function ([09d2898](https://github.com/willothy/dropbar.nvim/commit/09d289822244bc1dc115d1ee59cf4be9cfc5ddbb))
+* **configs:** use `&lt;Esc&gt;` in normal mode to close current menu ([ee3a356](https://github.com/willothy/dropbar.nvim/commit/ee3a356254ab494c0e280b809969a7a3a7e38fb7))
+* **configs:** use only markdown source for markdown file symbols ([c8b3013](https://github.com/willothy/dropbar.nvim/commit/c8b30136d18e79228a48db32e090c82428af34c9))
+* **general behavior:** deprecate opts.general.update_events ([415a587](https://github.com/willothy/dropbar.nvim/commit/415a5872d3090f14721160f4c911c10c8b08c661))
+* **highlights:** add hl-DropBarMenu[NormalFloat,FloatBorder] ([#16](https://github.com/willothy/dropbar.nvim/issues/16)) ([54ab3ee](https://github.com/willothy/dropbar.nvim/commit/54ab3ee9134e6787dd7d3ff190c279392600ad1f))
+* **highlights:** add hl-DropBarMenuNormalFloat linking to hl-WinBar ([#16](https://github.com/willothy/dropbar.nvim/issues/16)) ([aeea703](https://github.com/willothy/dropbar.nvim/commit/aeea7038f52cfebe12bc901cd2db9070c36fdbcf))
+* **highlights:** reset hlgroups on ColorScheme ([befe881](https://github.com/willothy/dropbar.nvim/commit/befe88172faf58a2b952b135b5ee2fcaca042e1a))
+* **highlights:** use hl-DropBarKind* for text highlights ([#18](https://github.com/willothy/dropbar.nvim/issues/18)) ([36ce8a1](https://github.com/willothy/dropbar.nvim/commit/36ce8a1715c69816b6fdfbabdb2496db204e1593))
+* **menu & configs:** more responsive hovering & clicking in normal mode ([927cc56](https://github.com/willothy/dropbar.nvim/commit/927cc566c562db8665ff52dd9e2df0ef6c37b1b2))
+* **menu:** add background for scrollbar; simplify scrollbar logic ([eac1b26](https://github.com/willothy/dropbar.nvim/commit/eac1b2661fa139d934215cb20989aaed79861ea1))
+* **menu:** add scrollbar to the menu when the symbol list is too long ([#84](https://github.com/willothy/dropbar.nvim/issues/84)) ([54813b4](https://github.com/willothy/dropbar.nvim/commit/54813b42387535413c5b9f8bd175810559e81d32))
+* **menu:** allow showing virtual text below entries ([#92](https://github.com/willothy/dropbar.nvim/issues/92)) ([3daffc1](https://github.com/willothy/dropbar.nvim/commit/3daffc1215d715a4e9c544e2c71db16aab61d86f))
+* **menu:** enable menu quick navigation by default ([#3](https://github.com/willothy/dropbar.nvim/issues/3)) ([54c1dba](https://github.com/willothy/dropbar.nvim/commit/54c1dbaf4e390f219adc6fd7efd9093a0958b9e3))
+* **menu:** fuzzy finding ([#77](https://github.com/willothy/dropbar.nvim/issues/77)) ([8da1555](https://github.com/willothy/dropbar.nvim/commit/8da155550dbd4d2da6740a4a8d6bddb75d6964dd))
+* **menu:** highlight entries/symbols under current mouse/cursor position ([#3](https://github.com/willothy/dropbar.nvim/issues/3)) ([54284b3](https://github.com/willothy/dropbar.nvim/commit/54284b3fe5f23e94792b5b7e57e8fb3dbabc1af4))
+* **menu:** only move cursor to the first symbol on entering a new menu ([ca6741c](https://github.com/willothy/dropbar.nvim/commit/ca6741cb13f2c3580baedcb068952fc79b8f1c03))
+* **menu:** scrollbar customization options ([#96](https://github.com/willothy/dropbar.nvim/issues/96)) ([e68e054](https://github.com/willothy/dropbar.nvim/commit/e68e054db7533822bf3121c24bc92c81745c60cd))
+* notify neovim version requirement ([#15](https://github.com/willothy/dropbar.nvim/issues/15)) ([d3ebf22](https://github.com/willothy/dropbar.nvim/commit/d3ebf2253ddf0da91437ded2ffb5b8a2bfc6c4ba))
+* **sources/config:** treesitter: improve default name pattern and logic ([c72bd7f](https://github.com/willothy/dropbar.nvim/commit/c72bd7f09f6038540a51dd34c0fc52dce469dabd))
+* **sources/config:** treesitter/markdown: perfer treesitter parser ([15115eb](https://github.com/willothy/dropbar.nvim/commit/15115ebbbec87bdf6f2b6891d451309422e37066))
+* **sources:** lsp: check nil before indexing info.data.client_id ([#13](https://github.com/willothy/dropbar.nvim/issues/13)) ([4c746bc](https://github.com/willothy/dropbar.nvim/commit/4c746bc7c8474980df29a72b73327bf1c91f1bc0))
+* **sources:** path: add opts to change file symbol when modified is set ([#14](https://github.com/willothy/dropbar.nvim/issues/14)) ([6c568de](https://github.com/willothy/dropbar.nvim/commit/6c568de9c01efbba99f4b20e84c5cfb772241039))
+* **sources:** treesitter: add json pair to valid treesitter types ([5c8bd1a](https://github.com/willothy/dropbar.nvim/commit/5c8bd1a4afe55c211c56b27a0a068ca1ff709c6e))
+* **sources:** treesitter: handle cursor pos in insert mode differently ([c25bef8](https://github.com/willothy/dropbar.nvim/commit/c25bef89bce0300cb3913a51f711502f6b2ca310))
+* **symbol:** preview symbol in source window ([3882ee3](https://github.com/willothy/dropbar.nvim/commit/3882ee30a2aa07d735a2747ef7f6e1767aeec725))
+* **ui-select:** support optional preview of items ([0abd1fa](https://github.com/willothy/dropbar.nvim/commit/0abd1fa968f802ed490836658c496b793d0c47e1))
+* use dropbar menu for `ui.select` (opt-in) ([#120](https://github.com/willothy/dropbar.nvim/issues/120)) ([86a7736](https://github.com/willothy/dropbar.nvim/commit/86a7736f097f2a3fea7da1fc75c16f4ff1a50914))
+
+
+### Bug Fixes
+
+* always ensure that offset is no larger than ([b4b6b4a](https://github.com/willothy/dropbar.nvim/commit/b4b6b4ab7bfed6dfedc81ced43c67d83dc14a54a))
+* **api:** dropbar_menu_t:fuzzy_find_close() param ([2254b1d](https://github.com/willothy/dropbar.nvim/commit/2254b1d5846d2d83b42beccfc375872435b02ce6))
+* **autocmds:** winbar not updated in time in insert mode ([e54c1a6](https://github.com/willothy/dropbar.nvim/commit/e54c1a6f48c5dee436750214836e3ba84f46b60f))
+* **bar & highlights:** hl-DropBarIconUISeparator not set in winbar ([96b3fad](https://github.com/willothy/dropbar.nvim/commit/96b3fad938f1b9e6747848fe2cc9509612e207d0))
+* **bar:** check if buf number is valid before truncating ([8825367](https://github.com/willothy/dropbar.nvim/commit/8825367c86cdcd8577732419ef68258c9ad6d398))
+* **bar:** check nil before calling on_click() in dropbar_t:pick() ([e920832](https://github.com/willothy/dropbar.nvim/commit/e9208326c8726595c3f67a1b9b6021f1fe43554d))
+* **bar:** dropbar_t separator and extends losts metatable if merged with opts ([dfa59b6](https://github.com/willothy/dropbar.nvim/commit/dfa59b6c5d0a5a1f443eeda33234193d10325dda))
+* **bar:** hovering highlight not updated for dropbar at non-current windows ([fb97d5e](https://github.com/willothy/dropbar.nvim/commit/fb97d5e4432aba6c14ef1a73c6fbf7091be33fa3))
+* **bar:** invalid buffer number after `:bw &lt;buffer&gt;` ([2cc0381](https://github.com/willothy/dropbar.nvim/commit/2cc0381cd7ef1d69d289a36715a3ea817bee2691))
+* **bar:** potential bug in the return value of dropbar_t:pick_mode_wrap() ([648a19c](https://github.com/willothy/dropbar.nvim/commit/648a19c9002eb36af85d6088727e13032e01f413))
+* **bar:** remove debug print ([b201f50](https://github.com/willothy/dropbar.nvim/commit/b201f500d19e632cc08b87ca8ad31eef41a7b2fe))
+* **bar:** should set jumplist before dropbar_symbol_t:jump() ([f54d926](https://github.com/willothy/dropbar.nvim/commit/f54d926d67d66e226b94e3b626e5f13224bc961d))
+* **configs & icons:** add missing terminal icon ([76e72ca](https://github.com/willothy/dropbar.nvim/commit/76e72cac6f6cedcc9d09c56a909ae284f5dc62c7))
+* **configs & menu:** default mapping in visual mode causes confusion ([10b2873](https://github.com/willothy/dropbar.nvim/commit/10b2873a6aa8fd5046b4c5d752d4e842e5dbbb6c))
+* **configs:** cannot find winnr (again) ([9f86b27](https://github.com/willothy/dropbar.nvim/commit/9f86b27005031e5a418a8a46633f3db86925b978))
+* **configs:** cannot find winnr (invalid window ID) ([0242c97](https://github.com/willothy/dropbar.nvim/commit/0242c976119a0d115e38930125461082ecff4b55))
+* **config:** should not disable icons when new_opts.icons.disable is not provided ([#31](https://github.com/willothy/dropbar.nvim/issues/31)) ([1254ba2](https://github.com/willothy/dropbar.nvim/commit/1254ba22a26ad179dffd094f410f0ee32c26c4fa))
+* **config:** wrong sources path ([#46](https://github.com/willothy/dropbar.nvim/issues/46)) ([a718484](https://github.com/willothy/dropbar.nvim/commit/a718484ab639c8dc839d2c9c1031052ec6766072))
+* convert codepoints from nerdfonts v2 to v3 ([03f6e86](https://github.com/willothy/dropbar.nvim/commit/03f6e8635d413805d1143f4a2614c814a4e798d9))
+* **dropbar:** WinResized not updating all affected windows ([#56](https://github.com/willothy/dropbar.nvim/issues/56)) ([03bfd62](https://github.com/willothy/dropbar.nvim/commit/03bfd620f4d98a889bc7a0059ddb21dd24abdd7f))
+* error: not allowed in sandbox ([0624308](https://github.com/willothy/dropbar.nvim/commit/0624308db7bb4190bff1a1f50eda4225a38f41e2))
+* **fzf:** ensure `fzf_entry.pos` is non-nil in `on_update` ([#98](https://github.com/willothy/dropbar.nvim/issues/98)) ([9fc12e3](https://github.com/willothy/dropbar.nvim/commit/9fc12e3f16948a82465509f69474544efc5fd23a)), closes [#97](https://github.com/willothy/dropbar.nvim/issues/97)
+* **fzf:** hover highlighting of last entry in fzf ([#91](https://github.com/willothy/dropbar.nvim/issues/91)) ([044dbc7](https://github.com/willothy/dropbar.nvim/commit/044dbc7748025bdcf8562e351b5dc8361ea77f99))
+* **general behavior:** do not clear the winbar when not enabled ([5d7030f](https://github.com/willothy/dropbar.nvim/commit/5d7030f88813a53200b23c71b906f9bbb8934019))
+* **general behavior:** invalid buffer error when clicking on winbar symbols ([6553d3a](https://github.com/willothy/dropbar.nvim/commit/6553d3ab071f13936bf346afa3c027fe26d7d335))
+* **general behavior:** update winbar on BufModifiedSet ([06e233a](https://github.com/willothy/dropbar.nvim/commit/06e233a110e7c4b7209fa085b9758941f6806613))
+* highlight current terminal buffer properly in menu ([1869204](https://github.com/willothy/dropbar.nvim/commit/1869204a43203a632beaaaa5bf514e5d428dda6a))
+* **highlights:** add missing hl-DropBarMenuCurrentContext ([5c51448](https://github.com/willothy/dropbar.nvim/commit/5c5144890cbcde884dabc984cb3e79b48f2e0cd1))
+* **highlights:** current context & hovering highlight priorities in menu ([88d71c6](https://github.com/willothy/dropbar.nvim/commit/88d71c6fc8002b236549052944efb3fa1a6970ed))
+* **highlights:** fix hl-DropbarMenuFloatBorder and hl-DropBarMenuNormalFloat mappings ([15f32c0](https://github.com/willothy/dropbar.nvim/commit/15f32c0b1c646b5608b52440599577799ce20425))
+* **highlights:** fix hlgroup names ([f217fde](https://github.com/willothy/dropbar.nvim/commit/f217fdee5f286d93112893c3280b94d69865c8fb))
+* **highlights:** fix hlgroup names (again) ([990cae9](https://github.com/willothy/dropbar.nvim/commit/990cae99d581ff94a746b4f4acb13c85620756c6))
+* **highlights:** fix the name of hl-DropBarMenuHoverSymbol ([63ab461](https://github.com/willothy/dropbar.nvim/commit/63ab4610da3d98208af08a7aa80b7c571209858d))
+* **highlights:** update current context highlights correctly ([7367616](https://github.com/willothy/dropbar.nvim/commit/7367616a558d60d4f64bd53a6349adcf4932466b))
+* **highlights:** winbar highlights changed after hovering/clicking if not defined ([4785774](https://github.com/willothy/dropbar.nvim/commit/47857743232f7d97d51da25196724b7657472fd0))
+* **hover:** clear if no component if under mouse, close [#80](https://github.com/willothy/dropbar.nvim/issues/80) ([28436bf](https://github.com/willothy/dropbar.nvim/commit/28436bffad9511d2775e4b44af6ae3bbe8c04c43))
+* **lint:** unused variable self ([5d31a34](https://github.com/willothy/dropbar.nvim/commit/5d31a3484db9779051192d5fb46e0f70454d6b71))
+* **memory:** dereference global callbacks correctly ([3435bb8](https://github.com/willothy/dropbar.nvim/commit/3435bb87cb3887d92ecd2675ae7e3ee986c421eb))
+* **menu-scrollbar:** revert 2debe82 ([#94](https://github.com/willothy/dropbar.nvim/issues/94)) ([7a91b7b](https://github.com/willothy/dropbar.nvim/commit/7a91b7ba15fcf78ba0d0081cbce7e31a73963b1c)), closes [#93](https://github.com/willothy/dropbar.nvim/issues/93)
+* **menu-scrollbar:** scrollbar not at bottom when last line is shown (partially fix [#93](https://github.com/willothy/dropbar.nvim/issues/93)) ([dc11786](https://github.com/willothy/dropbar.nvim/commit/dc11786bc5a57d9317ab70b3bffa5f480f95816d))
+* **menu-scrollbar:** scrollbar should be covered by sub-menus ([5b957d5](https://github.com/willothy/dropbar.nvim/commit/5b957d533673568411eb3532554c9bbce8214154))
+* **menu-scrollbar:** scrollbar thumb covered by menu border ([2b7c2d5](https://github.com/willothy/dropbar.nvim/commit/2b7c2d53363cb3d93376904dac3ea6d52dd900c5))
+* **menu-scrollbar:** scrollbar underflow ([b4b6b4a](https://github.com/willothy/dropbar.nvim/commit/b4b6b4ab7bfed6dfedc81ced43c67d83dc14a54a))
+* **menu:** allow `relative` win settings other than `win`; improve fzf window placement ([#90](https://github.com/willothy/dropbar.nvim/issues/90)) ([2d383f4](https://github.com/willothy/dropbar.nvim/commit/2d383f40262258b10974e9ae9b3f76b95730de63))
+* **menu:** convert mouse.column to 0-based ([04e04cc](https://github.com/willothy/dropbar.nvim/commit/04e04cc10a3f1333d3948138b0faaad61a4bf481))
+* **menu:** cursor not set to first clickable component in current entry ([4ef2dac](https://github.com/willothy/dropbar.nvim/commit/4ef2dacd5889f07f16f097de606c5bde9668c81e))
+* **menu:** detect if mouse is at the border of the menu window, fix [#39](https://github.com/willothy/dropbar.nvim/issues/39) ([0ba1af6](https://github.com/willothy/dropbar.nvim/commit/0ba1af67c5f93b80e91b03b8eff1b908d66a70f0))
+* **menu:** drop-down menu position ([1bee80f](https://github.com/willothy/dropbar.nvim/commit/1bee80f8fc142755444a210f93a4ff9a5af0820a))
+* **menu:** dropbar_menu_entry_t separator losts metatable if merged with opts ([bb8a146](https://github.com/willothy/dropbar.nvim/commit/bb8a146c8249cfe2b64d1140e74fca3b92172d67))
+* **menu:** dropbar_menu_entry_t:cat() & :find_first_clickable() indexing ([9dc9dd0](https://github.com/willothy/dropbar.nvim/commit/9dc9dd0a5a6e0979e14ab7d7800851d880a2b1e0))
+* **menu:** dropbar_menu_t:click_on() wrongly updates clicked_at column number ([867c5dd](https://github.com/willothy/dropbar.nvim/commit/867c5dd8c34d992bbeec9abb99ab0b4feb771a36))
+* **menu:** duplicate current-context highlight in the first menu ([348a318](https://github.com/willothy/dropbar.nvim/commit/348a318747b266da13e91636b657a069d26fd942))
+* **menu:** error if execute `:bw` in dropbar menu ([62590d6](https://github.com/willothy/dropbar.nvim/commit/62590d609c806563b9ff9a8e8818d3ce60e4a049))
+* **menu:** fix &lt;MouseMove&gt; keymap ([103a808](https://github.com/willothy/dropbar.nvim/commit/103a808c5bc591b8a6647e688616b76bea7419a7))
+* **menu:** fix default keymaps in menu ([1072eff](https://github.com/willothy/dropbar.nvim/commit/1072eff3e0f28d3dc08f2b1782e0f5de6cd814c3))
+* **menu:** highlighting issues that occur during menu navigation ([#52](https://github.com/willothy/dropbar.nvim/issues/52)) ([a34d3e6](https://github.com/willothy/dropbar.nvim/commit/a34d3e6d19903d4e81c3bef3c743464117af631f))
+* **menu:** pass prev_win on opening/toggling menus ([29e9b76](https://github.com/willothy/dropbar.nvim/commit/29e9b76411f7b22a61a230663527c20f959c7ea3))
+* **menu:** scrollbar position ([eb61e57](https://github.com/willothy/dropbar.nvim/commit/eb61e57c7c6870ce101e0083afd12adb6b4e105e))
+* **menu:** set init cursor pos only on the first time opening a menu ([1e56ced](https://github.com/willothy/dropbar.nvim/commit/1e56ced0596261303f6c6d997494e3b21a715500))
+* **menu:** should close existing sub-menus on opening sub-menus ([#8](https://github.com/willothy/dropbar.nvim/issues/8)) ([10318d1](https://github.com/willothy/dropbar.nvim/commit/10318d16e73ba4ce4b54c31f97d664c97accf289))
+* **menu:** should set cursor to previous position explicitly ([7d20061](https://github.com/willothy/dropbar.nvim/commit/7d20061c8dd5dc7e8771dd35741e63d18a68a238))
+* **menu:** wrong prev_window if opened from non-current window ([094f34d](https://github.com/willothy/dropbar.nvim/commit/094f34dbf31409c1ba7cf110d982c66143a17584))
+* remove hover highlight on FocusLost ([#119](https://github.com/willothy/dropbar.nvim/issues/119)) ([50319e2](https://github.com/willothy/dropbar.nvim/commit/50319e295d80241bee284386ad38781fb3411112))
+* **sources-lsp:** handle out-of-spec lsp symbol number, close [#104](https://github.com/willothy/dropbar.nvim/issues/104) ([6e52712](https://github.com/willothy/dropbar.nvim/commit/6e52712cadded5ecc667930c2559ce10550d8ff9))
+* **sources-markdown:** check buffer validity, close [#114](https://github.com/willothy/dropbar.nvim/issues/114) ([9885b34](https://github.com/willothy/dropbar.nvim/commit/9885b34a05de6c2dc97d3ceda554a02e33c460ff))
+* **sources-path & configs:** should use window-local cwd ([d42a135](https://github.com/willothy/dropbar.nvim/commit/d42a1354d450fa82b341edb04094b2e201cb78bc))
+* **sources-path:** infinate loop finding root on Windows system ([#111](https://github.com/willothy/dropbar.nvim/issues/111)) ([c8a209e](https://github.com/willothy/dropbar.nvim/commit/c8a209ee319bb93e41e4daebc02eb1614409c350))
+* **sources-treesitter:** active ts parser ignore if highlight disabled ([c88c4ff](https://github.com/willothy/dropbar.nvim/commit/c88c4ffbb41c10dfd36e3405f4619e355ebee58d))
+* **sources.path/highlights:** `DropBarKindFile` not used ([dd0a43d](https://github.com/willothy/dropbar.nvim/commit/dd0a43d0bdd2918bef5ed7f42caacb1bbe5d7d92))
+* **sources:** lsp source should not request for winbar update, fix [#55](https://github.com/willothy/dropbar.nvim/issues/55) ([7341bee](https://github.com/willothy/dropbar.nvim/commit/7341beee61e7ab48d504fc5f4989dfa934d2151c))
+* **sources:** markdown parser children symbols resolution logic ([37d34e5](https://github.com/willothy/dropbar.nvim/commit/37d34e5bd85c12efb0e486a8f1324ea52d23be7f))
+* **sources:** markdown parser init ['end'].lnum ([6d9c78c](https://github.com/willothy/dropbar.nvim/commit/6d9c78c01aaa94442f13d9a827b6cd756e430c31))
+* **sources:** markdown: error when clicking on markdown heading symbol ([ab3ed40](https://github.com/willothy/dropbar.nvim/commit/ab3ed4064ec2a4133864fc8abe466c5084fa9f0f))
+* **sources:** path: should use file icons for symbols of type 'file' ([190dcc1](https://github.com/willothy/dropbar.nvim/commit/190dcc1c47e8ddb0deea583af58f983423dc8e1b))
+* **sources:** terminal: add missing name highlight ([2d94c28](https://github.com/willothy/dropbar.nvim/commit/2d94c28264fc43eb65a56c227ee2f4526cd8dfa8))
+* **sources:** treesitter: add missing call to ipairs() ([d6775ce](https://github.com/willothy/dropbar.nvim/commit/d6775cefc2f7e7fcd5f6febdb4ab89f0556be510))
+* **sources:** treesitter: duplicate current node in siblings list ([eb242a2](https://github.com/willothy/dropbar.nvim/commit/eb242a22959231db844d5c633846a43b13e09d29))
+* **sources:** treesitter: order of siblings is reversed ([94b8d52](https://github.com/willothy/dropbar.nvim/commit/94b8d521aa973034939151cb53013b91e2b3748b))
+* **ui-select:** ensure prompt is visible ([84bcce1](https://github.com/willothy/dropbar.nvim/commit/84bcce140f16683156d7d59553e231ee1c896ff0))
+* **ui-select:** only use virt_text if value is table ([84bcce1](https://github.com/willothy/dropbar.nvim/commit/84bcce140f16683156d7d59553e231ee1c896ff0))
+* update hover highlight on FocusGained ([7b65210](https://github.com/willothy/dropbar.nvim/commit/7b65210700ba3886bfbf8ab8686d50b62f36fc9f))
+
+
+### Performance Improvements
+
+* **bar:** avoid unnecessary redraw, also fix [#38](https://github.com/willothy/dropbar.nvim/issues/38) ([0ccb5d7](https://github.com/willothy/dropbar.nvim/commit/0ccb5d743c7c6349c50e397504bfb2a331e590d2))
+* **configs:** remove some rarely-used events ([68eebfd](https://github.com/willothy/dropbar.nvim/commit/68eebfde164db0d310f134f80600d0979d8e6ece))
+* **menu:** make preview smoother; reduce unnecessary cursor jumps ([4f22910](https://github.com/willothy/dropbar.nvim/commit/4f22910fe08592ddcc0684bc930538b8ce1fbf8f))
+* provide option to prevent frequent update while scrolling ([9d39fb4](https://github.com/willothy/dropbar.nvim/commit/9d39fb49fb49e85a6d2dd068863e1c16ed35eccb))
+* **symbol:** cache string and length for symbols ([2c02b28](https://github.com/willothy/dropbar.nvim/commit/2c02b280b2f4661e634dc07fb287af165512d464))
+
+
+### Reverts
+
+* "feat(bar): add truncate mark after the left padding" ([e07ef94](https://github.com/willothy/dropbar.nvim/commit/e07ef941ec496bd5ed5ea353ffeb8be6167110d2))
+
+
+### Code Refactoring
+
+* **bar:** make callback indexing more robust ([3dd2c28](https://github.com/willothy/dropbar.nvim/commit/3dd2c282b4fb3410eced46b2debd21e292e6fad1))
+* **fzf/configs:** remove config option `opts.fzf.hl` ([deaa54d](https://github.com/willothy/dropbar.nvim/commit/deaa54dd445275dc51639fa23e648ec3e0dce0f9))
+* **highlights:** remove hl-DropBarIconCurrentContext ([24106ff](https://github.com/willothy/dropbar.nvim/commit/24106ff3be3de91c9d455e0bbd0fc505b98b08fc))
+* **hlgroups:** link `hl-DropBarMenuScrollBar` to `hl-PmenuThumb` by default ([813c032](https://github.com/willothy/dropbar.nvim/commit/813c032cc941e1e470b8b2836d854e1d3fc2fd74))
+
 ## [7.3.0](https://github.com/Bekaboo/dropbar.nvim/compare/v7.2.1...v7.3.0) (2023-12-09)
 
 
